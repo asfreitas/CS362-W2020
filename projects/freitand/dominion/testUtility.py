@@ -1,7 +1,7 @@
 import Dominion
 from collections import defaultdict
 import random
-
+# Adds the boxes to a set and then returns the box
 def GetBoxes(nV):
     box = {}
     box["Woodcutter"]=[Dominion.Woodcutter()]*10
@@ -30,14 +30,14 @@ def GetBoxes(nV):
     box["Thief"]=[Dominion.Thief()]*10
     box["Throne Room"]=[Dominion.Throne_Room()]*10
     return box
-
+# Helper function for the GetSupply function
 def _GetSupply(box):
     boxlist = [k for k in box]
     random.shuffle(boxlist)
     random10 = boxlist[:10]
     supply = defaultdict(list,[(k,box[k]) for k in random10])
     return supply
-
+# Adds supply cards to supply set
 def GetSupply(box, nC, nV):
     supply = _GetSupply(box)
     supply["Silver"]=[Dominion.Silver()]*40
@@ -47,7 +47,7 @@ def GetSupply(box, nC, nV):
     supply["Province"]=[Dominion.Province()]*nV
     supply["Curse"]=[Dominion.Curse()]*nC
     return supply
-
+# Adds human and computer players to game
 def GetPlayers(player_names):
     players = []
     for name in player_names:
@@ -58,7 +58,7 @@ def GetPlayers(player_names):
         else:
             players.append(Dominion.Player(name))
     return players
-
+# Dictionary for card costs
 supply_order = {0:['Curse','Copper'],2:['Estate','Cellar','Chapel','Moat'],
                 3:['Silver','Chancellor','Village','Woodcutter','Workshop'],
                 4:['Gardens','Bureaucrat','Feast','Militia','Moneylender','Remodel','Smithy','Spy','Thief','Throne Room'],
